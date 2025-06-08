@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
 
-        // Se inicializan como null, ya que se registran durante la ejecución
         Cliente cliente1 = null;
         CuentaBancaria cuentaCliente = null;
 
@@ -40,18 +39,16 @@ public class Main {
                 }
             }
 
-            // Consumir el salto de línea pendiente después de nextInt() para evitar problemas con nextLine()
             teclado.nextLine();
 
             switch (opcionMenu) {
-                case 1: // Registrar Cliente
+                case 1: 
                     System.out.println("\n--- Registro de Cliente ---");
 
                     String nuevoRut;
                     while (true) {
                         System.out.print("RUT (con puntos y guion, ej. 12.345.678-9): ");
                         nuevoRut = teclado.nextLine();
-                        // Regex para RUT chileno (X.XXX.XXX-X o XX.XXX.XXX-X)
                         String rutRegex = "^(\\d{1,2}\\.\\d{3}\\.\\d{3}-[0-9Kk])$";
                         if (nuevoRut.matches(rutRegex)) {
                             break;
@@ -80,7 +77,7 @@ public class Main {
                         System.out.print("Teléfono: ");
                         try {
                             nuevoTelefono = teclado.nextInt();
-                            teclado.nextLine(); // limpiar buffer
+                            teclado.nextLine(); 
                             break;
                         } catch (InputMismatchException e) {
                             System.out.println("Error: Número de teléfono inválido. Intente nuevamente.");
@@ -98,8 +95,7 @@ public class Main {
 
                         try {
                             tipoCuenta = teclado.nextInt();
-                            teclado.nextLine(); // limpiar buffer
-                            // Validar que la opción esté dentro del rango permitido
+                            teclado.nextLine();
                             if (tipoCuenta >= 1 && tipoCuenta <= 3) {
                                 break;
                             } else {
@@ -122,7 +118,7 @@ public class Main {
                         }
                     }
 
-                    double saldoInicial = 0.0; // Se inicializa en 0, si se desea pedir al usuario, agregar lógica
+                    double saldoInicial = 0.0;
 
                     switch (tipoCuenta) {
                         case 1:
@@ -139,7 +135,7 @@ public class Main {
                             break;
                         default:
                             System.out.println("Opción de cuenta inválida. No se pudo crear la cuenta.");
-                            cuentaCliente = null; // Asegurarse de que no se asocie una cuenta inválida
+                            cuentaCliente = null; 
                             break;
                     }
 
@@ -150,7 +146,7 @@ public class Main {
                     }
                     break;
 
-                case 2: // Datos Cliente
+                case 2: 
                     System.out.println("\n--- Datos del Cliente ---");
                     if (cliente1 != null) {
                         cliente1.mostrarInformacionCliente();
@@ -162,7 +158,7 @@ public class Main {
                     }
                     break;
 
-                case 3: // Depositar
+                case 3: 
                     System.out.println("\n--- Depositar Dinero ---");
                     if (cuentaCliente != null) {
                         System.out.print("Ingrese monto a depositar: $");
@@ -175,10 +171,10 @@ public class Main {
                     } else {
                         System.out.println("No hay cuenta registrada para depositar. Por favor, registre un cliente con una cuenta (Opción 1).");
                     }
-                    teclado.nextLine(); // Limpiar el buffer después de nextDouble()
+                    teclado.nextLine(); 
                     break;
 
-                case 4: // Girar
+                case 4:
                     System.out.println("\n--- Girar Dinero ---");
                     if (cuentaCliente != null) {
                         System.out.print("Ingrese monto a girar: $");
@@ -191,34 +187,31 @@ public class Main {
                     } else {
                         System.out.println("No hay cuenta registrada para girar. Por favor, registre un cliente con una cuenta (Opción 1).");
                     }
-                    teclado.nextLine(); // Limpiar el buffer después de nextDouble()
+                    teclado.nextLine(); 
                     break;
 
-                case 5: // Consultar Saldo
+                case 5:
                     System.out.println("\n--- Consultar Saldo ---");
                     if (cuentaCliente != null) {
-                        // Antes de mostrar el saldo, aplicamos el interés
-                        cuentaCliente.aplicarInteresGanado(); // Aquí se llama al nuevo método para aplicar el interés
+                        cuentaCliente.aplicarInteresGanado(); 
                         System.out.println("Saldo actual de la cuenta " + cuentaCliente.getNumeroCuenta() + ": $" + String.format("%.2f", cuentaCliente.getSaldo()));
                     } else {
                         System.out.println("No hay cuenta registrada para consultar. Por favor, registre un cliente con una cuenta (Opción 1).");
                     }
                     break;
 
-                case 6: // Salir
+                case 6: 
                     System.out.println("\nGracias por preferir Bank Europe. ¡Hasta pronto!");
-                    otraOperacion = false; // Finaliza el bucle principal
+                    otraOperacion = false; 
                     break;
 
-                default: // Opción inválida
+                default: 
                     System.out.println("\nOpción inválida. Por favor, ingrese un número entre 1 y 6.\n");
-                    // No se pide "otra operación" si la opción es inválida, se vuelve a mostrar el menú.
                     break;
             }
 
-            // Preguntar si desea realizar otra operación, SOLO SI no eligió la opción de salir
             if (opcionMenu != 6) {
-                int continuar; // Declaración de la variable 'continuar' aquí, dentro del if
+                int continuar; 
                 do {
                     System.out.println("\n¿Desea realizar otra operación?");
                     System.out.println("1. Sí");
@@ -233,19 +226,19 @@ public class Main {
                             otraOperacion = false;
                         } else {
                             System.out.println("Opción inválida. Por favor, ingrese 1 para Sí o 2 para No.");
-                            continuar = 0; // Se asegura que el bucle continúe si la opción es inválida
+                            continuar = 0; 
                         }
                     } catch (InputMismatchException e) {
                         System.out.println("Error: Ingrese una opción numérica válida (1 o 2).");
-                        teclado.nextLine(); // Limpiar el buffer
-                        continuar = 0; // Se asegura que el bucle continúe si la entrada es inválida
+                        teclado.nextLine(); 
+                        continuar = 0; 
                     }
                 } while (continuar != 1 && continuar != 2);
-                teclado.nextLine(); // Limpiar el buffer después de leer 'continuar'
+                teclado.nextLine(); 
             }
 
-        } while (otraOperacion); // Fin del do-while principal que controla el menú
+        } while (otraOperacion); 
 
-        teclado.close(); // Cierra el scanner para liberar recursos
+        teclado.close(); 
     }
 }

@@ -50,22 +50,14 @@ public abstract class CuentaBancaria {
         }
     }
 
-    // Método abstracto para que cada cuenta calcule su interés específico
     public abstract double calcularInteres();
 
-    /**
-     * Aplica el interés calculado al saldo de la cuenta.
-     * Solo suma intereses positivos y notifica si no hay intereses.
-     */
     public void aplicarInteresGanado() {
         double interes = calcularInteres();
         if (interes > 0) {
             this.saldo += interes;
             System.out.println("Interés de $" + String.format("%.2f", interes) + " aplicado al saldo.");
         } else {
-            // Esto podría ser un mensaje condicional si la cuenta no genera interés
-            // o si el interés es negativo (como en el caso de sobregiro).
-            // Por simplicidad, aquí solo indicamos que no hay interés si es 0 o negativo.
             System.out.println("No se generaron intereses positivos para aplicar en esta cuenta.");
         }
     }
