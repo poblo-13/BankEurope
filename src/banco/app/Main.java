@@ -19,7 +19,6 @@ public class Main {
         int opcionMenu;
 
         do {
-            // Este bucle interno asegura que siempre se ingrese una opción numérica válida
             while (true) {
                 System.out.println("=== Bienvenido a Bank Europe ===\n");
                 System.out.println("1. Registrar Cliente.");
@@ -32,10 +31,10 @@ public class Main {
 
                 try {
                     opcionMenu = teclado.nextInt();
-                    break; // Salir del bucle si la entrada es válida
+                    break; 
                 } catch (InputMismatchException e) {
                     System.out.println("\nError: Ingrese una opción numérica válida (1-6).\n");
-                    teclado.nextLine(); // Limpiar el buffer del scanner
+                    teclado.nextLine(); 
                 }
             }
 
@@ -111,7 +110,7 @@ public class Main {
                     while (true) {
                         System.out.print("Número de cuenta (9 dígitos): ");
                         numeroCuenta = teclado.nextLine();
-                        if (numeroCuenta.matches("\\d{9}")) { // Validar que sean exactamente 9 dígitos
+                        if (numeroCuenta.matches("\\d{9}")) { 
                             break;
                         } else {
                             System.out.println("Error: el número de cuenta debe tener exactamente 9 dígitos numéricos.");
@@ -180,7 +179,7 @@ public class Main {
                         System.out.print("Ingrese monto a girar: $");
                         try {
                             double montoGiro = teclado.nextDouble();
-                            cuentaCliente.girar(montoGiro); // El método girar ya imprime éxito o fracaso
+                            cuentaCliente.girar(montoGiro); 
                         } catch (InputMismatchException e) {
                             System.out.println("Error: Monto inválido. Ingrese un valor numérico.");
                         }
